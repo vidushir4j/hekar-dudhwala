@@ -14,10 +14,11 @@ body {
   padding: 20px;
   background-color: rgba(245, 8, 134, 0.948);
   border-radius: 20px;
-  margin: 100px;
+  margin: 20px auto; /* Reduced for mobile */
   max-width: 900px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
   animation: slideInFromBottom 1s ease-out;
+  box-sizing: border-box;
 }
 
 header {
@@ -279,10 +280,9 @@ footer {
   }
 
   .container {
-    margin: 10px auto;
+    margin: 10px auto; /* Keeps it centered with less vertical space */
     padding: 10px;
     max-width: 95%;
-    box-sizing: border-box;
   }
 
   header {
@@ -291,13 +291,14 @@ footer {
   }
 
   h1 {
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin: 0;
     color: #8b4513;
-    line-height: 1.2;
+    line-height: 1.3;
     word-break: break-word;
     text-align: center;
   }
+
 
   .tagline {
     font-size: 1em;
