@@ -10,7 +10,7 @@ body {
 .container {
   text-align: center;
   padding: 20px;
-  background-color: rgba(245, 8, 134, 0.948);
+  background-color: rgba(244, 130, 191, 0.948);
   border-radius: 20px;
   margin: 20px auto; /* Fix for mobile */
   max-width: 900px;
