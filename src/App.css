@@ -41,7 +41,7 @@ h1 {
 
 .milk-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   margin-top: 30px;
 }
@@ -213,6 +213,33 @@ footer {
   background: transparent;
   cursor: pointer;
 }
+.order-history-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4682b4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}
+
+.order-history-btn:hover {
+  background-color: #4169e1;
+}
+.hidden-order-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  opacity: 0.3;
+  z-index: 1000;
+}
+.hidden-order-icon:hover {
+  opacity: 1;
+}
 
 /* ANIMATIONS */
 @keyframes slideInFromBottom {
@@ -307,4 +334,10 @@ footer {
   .card {
     width: 90%;
   }
+}
+/* GLOBAL INPUT FONT STYLE */
+input, select, textarea {
+  font-family: 'Comic Sans MS', cursive !important;
+  font-size: 1em;
+  color: #333;
 }

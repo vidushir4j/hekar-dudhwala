@@ -1,6 +1,6 @@
 // src/App.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -16,6 +16,19 @@ function App() {
     instructions: '',
     payment: 'Cash',
   });
+
+  // 🔐 Allow only you to view orders by pressing Ctrl + O
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.key.toLowerCase() === 'o') {
+        const orders = JSON.parse(localStorage.getItem('milkOrders')) || [];
+        console.log("🧾 All Orders:", orders);
+        alert("📦 All orders printed in console (Ctrl + Shift + I)");
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleOrderClick = (milkName, pricePerLiter) => {
     setSelectedMilk({ name: milkName, pricePerLiter });
@@ -119,6 +132,11 @@ function App() {
         <footer>
           <p>© 2025 Hekar Yadav Dudhwala | Made with ❤️ and 🐄</p>
         </footer>
+
+        {/* 🔒 Hidden Order Icon (optional) */}
+        <div className="hidden-order-icon" title="View Orders (Ctrl+O)">
+          🧾
+        </div>
       </div>
 
       {selectedMilk && !showForm && (
