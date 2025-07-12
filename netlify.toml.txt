@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+
+[context.production.environment]
+  NODE_VERSION = "18"
+
+[functions]
+  directory = "netlify/functions"
+
+[build.images]
+  node = "20"
+  ubuntu = "focal"
