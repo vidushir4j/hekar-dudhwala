@@ -49,7 +49,8 @@ h1 {
 .card {
   background: linear-gradient(135deg, #fffacd, #ffe4e1);
   border-radius: 15px;
-  width: 250px;
+  width: 100%; /* instead of fixed 250px */
+  max-width: 250px; /* still limits it on larger screens */
   padding: 20px;
   box-shadow: 4px 4px 12px rgba(255, 182, 193, 0.6);
   transition: transform 0.3s ease;
@@ -271,7 +272,9 @@ footer {
 }
 @media (max-width: 600px) {
   h1 {
-    font-size: 2em;
+    font-size: 1.5em;
+    margin: 10px 0;
+    word-wrap: break-word;
   }
 
   .container {
@@ -279,10 +282,33 @@ footer {
     padding: 10px;
   }
 
-  .popup-box {
-    width: 95%;
+  .milk-list {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card {
+    width: 100%;
+    padding: 15px;
+    font-size: 0.9em;
+  }
+
+  .popup-box,
+  .form-popup-box,
+  .success-popup-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .tagline {
+    font-size: 1em;
+  }
+
+  footer {
+    font-size: 0.75em;
   }
 }
+
 .form-error {
   color: red;
   font-weight: bold;
