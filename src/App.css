@@ -14,7 +14,7 @@ body {
   padding: 20px;
   background-color: rgba(245, 8, 134, 0.948);
   border-radius: 20px;
-  margin: 20px;
+  margin: 100px;
   max-width: 900px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
   animation: slideInFromBottom 1s ease-out;
