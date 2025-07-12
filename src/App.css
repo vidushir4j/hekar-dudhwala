@@ -289,3 +289,10 @@ footer {
   margin-top: 10px;
   animation: fadeIn 0.3s ease-in-out;
 }
+html, body {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
