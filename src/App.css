@@ -337,7 +337,7 @@ footer {
 }
 /* GLOBAL INPUT FONT STYLE */
 input, select, textarea {
-  font-family: 'Comic Sans MS', cursive !important;
+  font-family: 'Comic Neue', cursive, sans-serif !important;
   font-size: 1em;
   color: #333;
 }
