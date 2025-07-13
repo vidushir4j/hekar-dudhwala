@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
 import { Timestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom'; // ⬅️ add this at the top of App.js
+import './AdminOrders.css';
 
 
 // ----- AdminOrders Component -----
@@ -87,6 +89,8 @@ function AdminOrders() {
 
 // ----- HomePage Component -----
 function HomePage() {
+  const navigate = useNavigate(); // ⬅️ for navigation
+
   const [selectedMilk, setSelectedMilk] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -177,6 +181,10 @@ function HomePage() {
     <>
       <div className="container">
         <header>
+          <div className="orders-button-wrapper">
+  <button className="cute-orders-btn" onClick={() => navigate('/admin')}>📦 View Orders</button>
+</div>
+
           <h1>Hekar Yadav Dudhwala 😋</h1>
           <p className="tagline">Freshness straight from our tabela to your home!</p>
         </header>
@@ -185,7 +193,7 @@ function HomePage() {
           <MilkCard name="Cow Milk" description="Sabse normal, sabka favourite!" price="₹70/L" emoji="🐄" onOrder={() => handleOrderClick("Cow Milk", 70)} />
           <MilkCard name="Buffalo Milk" description="Kali bhes ka shudh safed dudh!" price="₹80/L" emoji="🐃" onOrder={() => handleOrderClick("Buffalo Milk", 80)} />
           <MilkCard name="Goat Milk" description="Goat milk for G.O.A.T.S.!" price="₹150/L" emoji="🐐" onOrder={() => handleOrderClick("Goat Milk", 150)} />
-          <MilkCard name="Breast Milk" description="Dudh, jo maa ki yaad dilade!" price="₹500/L" emoji="👩🏻" onOrder={() => handleOrderClick("Breast Milk", 500)} />
+          <MilkCard name="" description="!" price="" emoji="👩🏻" onOrder={() => handleOrderClick("Breast Milk", 500)} />
         </section>
 
         <footer>
