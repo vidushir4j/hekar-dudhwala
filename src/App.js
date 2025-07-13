@@ -193,7 +193,7 @@ function HomePage() {
           <MilkCard name="Cow Milk" description="Sabse normal, sabka favourite!" price="₹70/L" emoji="🐄" onOrder={() => handleOrderClick("Cow Milk", 70)} />
           <MilkCard name="Buffalo Milk" description="Kali bhes ka shudh safed dudh!" price="₹80/L" emoji="🐃" onOrder={() => handleOrderClick("Buffalo Milk", 80)} />
           <MilkCard name="Goat Milk" description="Goat milk for G.O.A.T.S.!" price="₹150/L" emoji="🐐" onOrder={() => handleOrderClick("Goat Milk", 150)} />
-          <MilkCard name="" description="!" price="" emoji="👩🏻" onOrder={() => handleOrderClick("Breast Milk", 500)} />
+          <MilkCard name="Breast Milk" description="Dudh, jo maa ki yaad dila de!" price="₹500/L" emoji="👩🏻" onOrder={() => handleOrderClick("Breast Milk", 500)} />
         </section>
 
         <footer>
