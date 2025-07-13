@@ -1,6 +1,6 @@
 // src/AdminOrders.js
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from './firebase';
 import './AdminOrders.css';
 
@@ -24,7 +24,10 @@ function AdminOrders() {
   useEffect(() => {
     if (!accessGranted) return;
     const fetchOrders = async () => {
-      const querySnapshot = await getDocs(collection(db, 'orders'));
+const ordersRef = collection(db, 'orders');
+const q = query(ordersRef, orderBy('date', 'desc')); // 🔽 newest first
+const querySnapshot = await getDocs(q);
+
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setOrders(data);
     };
@@ -63,7 +66,10 @@ function AdminOrders() {
             <p><strong>Phone:</strong> {order.phone}</p>
             <p><strong>Payment:</strong> {order.payment}</p>
             <p><strong>Instructions:</strong> {order.instructions}</p>
-            <p><strong>Date:</strong> {order.date}</p>
+            <p><strong>Date:</strong> {order.date?.toDate().toLocaleString('en-IN', {
+                dateStyle: 'medium',
+                timeStyle: 'short'
+            })}</p>
           </div>
         ))
       )}

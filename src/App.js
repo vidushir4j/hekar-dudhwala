@@ -5,6 +5,8 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
+import { Timestamp } from 'firebase/firestore';
+
 
 // ----- AdminOrders Component -----
 function AdminOrders() {
@@ -107,7 +109,7 @@ function HomePage() {
       quantity: `${quantity * 500}ml`,
       total: `₹${((selectedMilk.pricePerLiter / 2) * quantity).toFixed(2)}`,
       ...formData,
-      date: new Date().toLocaleString()
+      date: Timestamp.now()
     };
 
     try {
