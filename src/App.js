@@ -153,7 +153,7 @@ const handleSubmitOrder = async () => {
         <div className="popup-overlay">
           <div className="popup-box">
             <h2>{selectedMilk.name} 🐮</h2>
-            <p>Do you want to order this milk on your laptop?</p>
+            <p>Do you want to order this milk?</p>
             <p className="price">₹{selectedMilk.pricePerLiter}/L</p>
             <div className="popup-buttons">
               <button className="yes-btn" onClick={handleConfirm}>Yes</button>
