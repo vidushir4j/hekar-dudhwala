@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { collection, addDoc } from 'firebase/firestore';
-import { analytics } from './firebase';
+import { db } from './firebase';
 
 
 
@@ -79,7 +79,7 @@ const handleSubmitOrder = async () => {
   };
 
   try {
-    await addDoc(collection(analytics, "orders"), order);
+    await addDoc(collection(db, "orders"), order);
     console.log("Order saved:", order);
 
     setFormData({
