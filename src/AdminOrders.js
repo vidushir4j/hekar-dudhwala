@@ -1,4 +1,3 @@
-// src/AdminOrders.js
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
@@ -6,15 +5,48 @@ import './AdminOrders.css';
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
+  const [accessGranted, setAccessGranted] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [error, setError] = useState('');
+
+  const correctPassword = 'dudhwala123'; // set your password here
+
+  const handlePasswordSubmit = () => {
+    if (passwordInput === correctPassword) {
+      setAccessGranted(true);
+      setError('');
+    } else {
+      setError('❌ Incorrect password');
+    }
+  };
 
   useEffect(() => {
+    if (!accessGranted) return;
+
     const fetchOrders = async () => {
       const querySnapshot = await getDocs(collection(db, 'orders'));
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setOrders(data);
     };
+
     fetchOrders();
-  }, []);
+  }, [accessGranted]);
+
+  if (!accessGranted) {
+    return (
+      <div className="admin-login">
+        <h2>🔐 Enter Admin Password</h2>
+        <input
+          type="password"
+          value={passwordInput}
+          onChange={(e) => setPasswordInput(e.target.value)}
+          placeholder="Enter password"
+        />
+        <button onClick={handlePasswordSubmit}>Login</button>
+        {error && <p className="error">{error}</p>}
+      </div>
+    );
+  }
 
   return (
     <div className="admin-container">
@@ -30,14 +62,14 @@ function AdminOrders() {
             <p><strong>Phone:</strong> {order.phone}</p>
             <p><strong>Payment:</strong> {order.payment}</p>
             <p><strong>Instructions:</strong> {order.instructions}</p>
-<p><strong>Date:</strong> {
-  order.date
-    ? order.date.seconds
-      ? new Date(order.date.seconds * 1000).toLocaleString()
-      : new Date(order.date).toLocaleString()
-    : 'N/A'
-}</p>
-
+            <p><strong>Date:</strong> {
+              order.date?.seconds
+                ? new Date(order.date.seconds * 1000).toLocaleString('en-IN', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                  })
+                : 'N/A'
+            }</p>
           </div>
         ))
       )}
