@@ -37,7 +37,14 @@ function AdminOrders() {
             <p><strong>Phone:</strong> {order.phone}</p>
             <p><strong>Payment:</strong> {order.payment}</p>
             <p><strong>Instructions:</strong> {order.instructions}</p>
-            <p><strong>Date:</strong> {order.date}</p>
+<p><strong>Date:</strong> {
+  order.date
+    ? order.date.seconds
+      ? new Date(order.date.seconds * 1000).toLocaleString()
+      : new Date(order.date).toLocaleString()
+    : 'N/A'
+}</p>
+
           </div>
         ))
       )}

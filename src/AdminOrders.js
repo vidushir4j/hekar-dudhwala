@@ -1,61 +1,25 @@
 // src/AdminOrders.js
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
 import './AdminOrders.css';
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
-  const [accessGranted, setAccessGranted] = useState(false);
-  const [passwordInput, setPasswordInput] = useState('');
-  const [error, setError] = useState('');
-
-  const correctPassword = 'dudhwala123';
-
-  const handlePasswordSubmit = () => {
-    if (passwordInput === correctPassword) {
-      setAccessGranted(true);
-      setError('');
-    } else {
-      setError('❌ Incorrect password');
-    }
-  };
 
   useEffect(() => {
-    if (!accessGranted) return;
     const fetchOrders = async () => {
-const ordersRef = collection(db, 'orders');
-const q = query(ordersRef, orderBy('date', 'desc')); // 🔽 newest first
-const querySnapshot = await getDocs(q);
-
+      const querySnapshot = await getDocs(collection(db, 'orders'));
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setOrders(data);
     };
     fetchOrders();
-  }, [accessGranted]);
-
-  if (!accessGranted) {
-    return (
-      <div className="admin-login">
-        <h2>🔐 Enter Admin Password</h2>
-        <input
-          type="password"
-          value={passwordInput}
-          onChange={(e) => setPasswordInput(e.target.value)}
-          placeholder="Enter password"
-        />
-        <button onClick={handlePasswordSubmit}>Login</button>
-        {error && <p className="error">{error}</p>}
-      </div>
-    );
-  }
+  }, []);
 
   return (
     <div className="admin-container">
       <h2>📦 All Milk Orders</h2>
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
-      ) : (
+      {orders.length === 0 ? <p>No orders found.</p> : (
         orders.map(order => (
           <div key={order.id} className="order-card">
             <p><strong>Milk:</strong> {order.milk}</p>
@@ -66,10 +30,14 @@ const querySnapshot = await getDocs(q);
             <p><strong>Phone:</strong> {order.phone}</p>
             <p><strong>Payment:</strong> {order.payment}</p>
             <p><strong>Instructions:</strong> {order.instructions}</p>
-            <p><strong>Date:</strong> {order.date?.toDate().toLocaleString('en-IN', {
-                dateStyle: 'medium',
-                timeStyle: 'short'
-            })}</p>
+<p><strong>Date:</strong> {
+  order.date
+    ? order.date.seconds
+      ? new Date(order.date.seconds * 1000).toLocaleString()
+      : new Date(order.date).toLocaleString()
+    : 'N/A'
+}</p>
+
           </div>
         ))
       )}
