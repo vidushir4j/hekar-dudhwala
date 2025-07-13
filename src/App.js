@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from './firebase';
+
+
 
 function App() {
   const [selectedMilk, setSelectedMilk] = useState(null);
@@ -57,25 +61,26 @@ function App() {
     setQuantity(prev => Math.max(1, prev + delta));
   };
 
-  const handleSubmitOrder = () => {
-    const { name, address, phone } = formData;
+// Inside handleSubmitOrder:
+const handleSubmitOrder = async () => {
+  const { name, address, phone } = formData;
 
-    if (!name || !address || !phone) {
-      setFormError("⚠️ Please fill in Name, Address, and Phone Number.");
-      return;
-    }
+  if (!name || !address || !phone) {
+    setFormError("⚠️ Please fill in Name, Address, and Phone Number.");
+    return;
+  }
 
-    const order = {
-      milk: selectedMilk.name,
-      quantity: `${quantity * 500}ml`,
-      total: `₹${((selectedMilk.pricePerLiter / 2) * quantity).toFixed(2)}`,
-      ...formData,
-      date: new Date().toLocaleString()
-    };
+  const order = {
+    milk: selectedMilk.name,
+    quantity: `${quantity * 500}ml`,
+    total: `₹${((selectedMilk.pricePerLiter / 2) * quantity).toFixed(2)}`,
+    ...formData,
+    date: new Date().toLocaleString()
+  };
 
-    const existingOrders = JSON.parse(localStorage.getItem('milkOrders')) || [];
-    existingOrders.push(order);
-    localStorage.setItem('milkOrders', JSON.stringify(existingOrders));
+  try {
+    await addDoc(collection(db, "orders"), order);
+    console.log("Order saved:", order);
 
     setFormData({
       name: '',
@@ -88,7 +93,12 @@ function App() {
     setShowForm(false);
     setShowSuccess(true);
     setQuantity(1);
-  };
+  } catch (e) {
+    console.error("Error saving order:", e);
+    setFormError("Failed to place order. Please try again.");
+  }
+};
+
 
   return (
     <>
