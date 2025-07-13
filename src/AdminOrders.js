@@ -9,7 +9,7 @@ function AdminOrders() {
   const [passwordInput, setPasswordInput] = useState('');
   const [error, setError] = useState('');
 
-  const correctPassword = 'dudhwala123'; // set your password here
+  const correctPassword = 'dudhlover'; // set your password here
 
   const handlePasswordSubmit = () => {
     if (passwordInput === correctPassword) {
